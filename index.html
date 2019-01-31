@@ -34,6 +34,15 @@
             <img src="images/Sesamstrasse.jpg" width="50%"/>
         </section>
         <section>
+            <h3>Wann ist Webscraping sinnvoll?</h3>
+            <ul>
+                <li class="fragment">Daten von externen Webseiten benötigt</li>
+                <li class="fragment">Keine API</li>
+                <li class="fragment">Keine Zeit um Daten manuell zu sammeln</li>
+            </ul>
+            <img src="images/Bongo%20Cat.gif" class="fragment" width="39%">
+        </section>
+        <section>
             <section>
                 <h1>Alternativen</h1>
             </section>
@@ -75,7 +84,10 @@
         <section>
             <h4>Mittlerweile wird <img src="images/js.png" style="margin-bottom: 0em" width="5%" align="bottom"> zum
                 rendern kompletter Webseiten verwendet!</h4>
-            <h4 class="fragment">... :(</h4>
+            <div class="fragment">
+                <h4>... :(</h4>
+                <img src="images/sad_cat.jpg" width="35%"/>
+            </div>
             <p class="fragment">Nur Selenium und Puppeteer unterstützen HTML Rendering mit Javascript.</p>
         </section>
         <section>
@@ -145,10 +157,47 @@ public class WetterScrape {
                         ChromeDriver driver = new ChromeDriver(options);
 	                </code>
                 </pre>
+                <p class="fragment">Aber:</p>
+                <p class="fragment">Manche Seiten rendern im headless mode nicht.</p>
                 <aside class="notes">
                     Scraping soll immer im Hintergrund passieren ==> Server ==> Headless
                 </aside>
             </section>
+        </section>
+        <section>
+            <section>
+                <h2>Deployment</h2>
+                <img src="images/Docker.png" width=40%/>
+                <p>Docker macht's mal wieder einfach!</p>
+            </section>
+            <section>
+                <p>Dockerfile</p>
+                <pre>
+                    <code data-trim data-noescape>
+FROM python:3.7-alpine
+COPY . GameDeals
+RUN apk add chromium \
+    chromium-chromedriver \
+    python3-dev && \
+    pip install GameDeals/ && \
+CMD ["agentibus"]
+	                </code>
+                </pre>
+                <div class="fragment">
+                    <p>Wichtig: Docker Container muss mit</p>
+                    <pre>
+                    <code data-trim data-noescape>
+docker run --shm-size=2g author/image
+	                </code>
+                </pre>
+                    <p>gestartet werden</p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <h2>Einsatzbeispiel</h2>
+            <p>Confluence Artikel sammeln</p>
+            <img class="fragment" src="images/confluence.png.jpg" width="50%">
         </section>
         <section>
             <h2>Quellen</h2>
@@ -160,6 +209,9 @@ public class WetterScrape {
             <a href="https://flood.io/blog/load-testing-with-selenium/">Seleium</a>
             <a href="https://de.wikipedia.org/wiki/Datei:Unofficial_JavaScript_logo_2.svg">JS</a>
             <a href="https://www.kirupa.com/html5/javascript_the_browser_and_the_dom.htm">DOM</a>
+            <a href="https://www.theverge.com/circuitbreaker/2018/5/25/17386716/docker-kubernetes-containers-explained">Docker
+                Wal</a>
+            <a href="https://imgur.com/gallery/NCcyg4U">Bongo Cat</a>
         </section>
     </div>
 </div>
